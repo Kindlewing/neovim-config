@@ -21,6 +21,7 @@ return require('packer').startup(function(use)
 	use 'hrsh7th/nvim-cmp'
 	use 'hrsh7th/cmp-nvim-lsp'
 	use({"L3MON4D3/LuaSnip", tag = "v<CurrentMajor>.*"})
+	use {'akinsho/bufferline.nvim', tag = 'v3.*', requires = 'nvim-tree/nvim-web-devicons'}
 	use 'windwp/nvim-ts-autotag'
 	use {
 		"windwp/nvim-autopairs",
