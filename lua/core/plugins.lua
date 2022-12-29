@@ -16,12 +16,20 @@ return require('packer').startup(function(use)
 	use 'ellisonleao/gruvbox.nvim'
 	use 'nvim-tree/nvim-tree.lua'
 	use 'nvim-tree/nvim-web-devicons'
-	use 'nvim-lualine/lualine.nvim'
 	use 'nvim-treesitter/nvim-treesitter'
+	use 'mfussenegger/nvim-dap'
 	use 'hrsh7th/nvim-cmp'
+	use 'j-hui/fidget.nvim'
+	use {
+    	"SmiteshP/nvim-navic",
+    	requires = "neovim/nvim-lspconfig"
+	}
 	use 'hrsh7th/cmp-nvim-lsp'
+	use {
+  	  'lewis6991/gitsigns.nvim'
+	}
+	use "rebelot/heirline.nvim"
 	use({"L3MON4D3/LuaSnip", tag = "v<CurrentMajor>.*"})
-	use {'akinsho/bufferline.nvim', tag = 'v3.*', requires = 'nvim-tree/nvim-web-devicons'}
 	use 'windwp/nvim-ts-autotag'
 	use {
 		"windwp/nvim-autopairs",

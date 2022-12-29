@@ -1,17 +1,22 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
+vim.g.loaded_netrwPlugin = true
+vim.g.loaded_netrw = true
+vim.g.netrwFileHandlers = true
 
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
-vim.opt.shiftwidth = 4;
-
+vim.opt.shiftwidth = 4
+vim.opt.clipboard = "unnamedplus" -- Connection to the system clipboard
 vim.opt.copyindent = true -- Copy the previous indentation on autoindenting
 vim.opt.cursorline = true -- Highlight the text line of the cursor
 vim.opt.fileencoding = "utf-8" -- File content encoding for the buffer
 vim.opt.cmdheight = 0 -- hide command line unless needed
 vim.opt.fillchars = { eob = " " } -- Disable `~` on nonexistent lines
+vim.opt.showtabline = 2 -- Always show tabline
 vim.opt.ignorecase = true -- Case insensitive searching
 vim.opt.lazyredraw = true -- lazily redraw screen
+vim.opt.scrolloff = 8 -- Number of lines to keep above and below the cursor
 vim.opt.number = true -- Show numberline
 vim.opt.preserveindent = true -- Preserve indent structure as much as possible
 vim.opt.relativenumber = true -- Show relative numberline
