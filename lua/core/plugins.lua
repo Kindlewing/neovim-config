@@ -13,6 +13,7 @@ local packer_bootstrap = ensure_packer()
 
 return require('packer').startup(function(use)
 	use 'wbthomason/packer.nvim'
+	use 'lewis6991/impatient.nvim'
 	use 'ellisonleao/gruvbox.nvim'
 	use 'nvim-tree/nvim-tree.lua'
 	use 'nvim-tree/nvim-web-devicons'
@@ -28,7 +29,16 @@ return require('packer').startup(function(use)
 	use {
   	  'lewis6991/gitsigns.nvim'
 	}
-	use "rebelot/heirline.nvim"
+	use 'nvim-lua/lsp-status.nvim'
+	use 'rebelot/kanagawa.nvim'
+	use {
+		'rebelot/heirline.nvim',
+		event = 'VimEnter',
+		config = function()
+			require 'core.plugin_config.heirline'
+		end
+	}
+
 	use({"L3MON4D3/LuaSnip", tag = "v<CurrentMajor>.*"})
 	use 'windwp/nvim-ts-autotag'
 	use {
