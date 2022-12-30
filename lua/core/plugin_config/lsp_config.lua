@@ -1,7 +1,9 @@
 require('mason').setup()
 require('mason-lspconfig').setup({
-	ensure_installed = { 'sumneko_lua' }
+	ensure_installed = { 'sumneko_lua', 'rust_analyzer', 'tsserver', 'intelephense' }
 })
+
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 local opts = { noremap = true, silent = true }
@@ -36,7 +38,7 @@ end
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
 local navic = require("nvim-navic")
-local servers = { 'pyright', 'rust_analyzer', 'tsserver', 'intelephense', 'tailwindcss' }
+local servers = { 'pyright', 'rust_analyzer', 'tsserver', 'intelephense' }
 for _, lsp in pairs(servers) do
 	require('lspconfig')[lsp].setup {
 		on_attach = on_attach,

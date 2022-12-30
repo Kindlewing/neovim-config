@@ -1,6 +1,17 @@
 local conditions = require("heirline.conditions")
 local utils = require("heirline.utils")
 
+local signs = {
+	{ name = "DiagnosticSignError", text = "E" },
+	{ name = "DiagnosticSignWarn", text = "W" },
+	{ name = "DiagnosticSignInfo", text = "I" },
+	{ name = "DiagnosticSignHint", text = "H" },
+}
+
+for _, sign in ipairs(signs) do
+	if not sign.texthl then sign.texthl = sign.name end
+	vim.fn.sign_define(sign.name, sign)
+end
 
 local function setup_colors()
 	return {
@@ -378,11 +389,15 @@ local Git = {
 local Diagnostics = {
 	condition = conditions.has_diagnostics,
 
+
+	static = {
+		error_icon = vim.fn.sign_getdefined("DiagnosticSignError")[1].text,
+		warn_icon = vim.fn.sign_getdefined("DiagnosticSignWarn")[1].text,
+		info_icon = vim.fn.sign_getdefined("DiagnosticSignInfo")[1].text,
+		hint_icon = vim.fn.sign_getdefined("DiagnosticSignHint")[1].text,
+	},
+
 	init = function(self)
-		self.error_icon = vim.fn.sign_getdefined("DiagnosticSignError")[1].text
-		self.warn_icon = vim.fn.sign_getdefined("DiagnosticSignWarn")[1].text
-		self.info_icon = vim.fn.sign_getdefined("DiagnosticSignInfo")[1].text
-		self.hint_icon = vim.fn.sign_getdefined("DiagnosticSignHint")[1].text
 		self.errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
 		self.warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
 		self.hints = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })

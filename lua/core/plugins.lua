@@ -34,7 +34,6 @@ return require('packer').startup(function(use)
     }
     use 'nvim-treesitter/nvim-treesitter'
     use 'hrsh7th/nvim-cmp'
-    use 'j-hui/fidget.nvim'
     use {
         'Darazaki/indent-o-matic',
         config = function()
