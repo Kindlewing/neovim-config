@@ -11,20 +11,34 @@ end
 
 local packer_bootstrap = ensure_packer()
 
+
+-- BEGIN PLUGINS
 return require('packer').startup(function(use)
 	use 'wbthomason/packer.nvim'
 	use 'lewis6991/impatient.nvim'
 	use 'ellisonleao/gruvbox.nvim'
 	use 'nvim-tree/nvim-tree.lua'
 	use 'nvim-tree/nvim-web-devicons'
+    use {
+        'stevearc/dressing.nvim',
+        config = function ()
+            require('core.plugin_config.dressing')
+        end
+    }
 	use 'nvim-treesitter/nvim-treesitter'
 	use 'hrsh7th/nvim-cmp'
 	use 'j-hui/fidget.nvim'
 	use {
+		'Darazaki/indent-o-matic',
+		config = function()
+			require('core.plugin_config.indent-o-matic')
+		end
+	}
+	use 'hrsh7th/cmp-nvim-lsp'
+	use {
     	"SmiteshP/nvim-navic",
     	requires = "neovim/nvim-lspconfig"
 	}
-	use 'hrsh7th/cmp-nvim-lsp'
 	use {
   	  'lewis6991/gitsigns.nvim'
 	}
@@ -56,6 +70,8 @@ return require('packer').startup(function(use)
 		tag = '0.1.0',
 		requires = {{ 'nvim-lua/plenary.nvim' }}
 	}
+-- END PLUGINS	
+
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
 	if packer_bootstrap then
