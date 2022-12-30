@@ -1,6 +1,6 @@
 require('mason').setup()
 require('mason-lspconfig').setup({
-	ensure_installed = { 'sumneko_lua', 'rust_analyzer', 'tsserver', 'intelephense' }
+	ensure_installed = { 'sumneko_lua', 'rust_analyzer', 'tsserver', 'intelephense', 'tailwindcss' }
 })
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
@@ -37,11 +37,12 @@ end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local navic = require("nvim-navic")
-local servers = { 'pyright', 'rust_analyzer', 'tsserver', 'intelephense' }
+local servers = { 'pyright', 'rust_analyzer', 'tsserver', 'intelephense', 'tailwindcss' }
+
 for _, lsp in pairs(servers) do
 	require('lspconfig')[lsp].setup {
 		on_attach = on_attach,
+		capabilities = capabilities,
 		flags = {
 			-- This will be the default in neovim 0.7+
 			debounce_text_changes = 150,
@@ -59,24 +60,3 @@ require('lspconfig').sumneko_lua.setup {
 		},
 	},
 }
-
-
-for _, lsp in pairs(servers) do
-	require("lspconfig")[lsp].setup {
-		on_attach = function(client, bufnr)
-			navic.attach(client, bufnr)
-		end
-	}
-end
-
-
-
-for _, lsp in pairs(servers) do
-	require('lspconfig')[lsp].setup {
-		on_attach = on_attach,
-		capabilities = capabilities, flags = {
-			-- This will be the default in neovim 0.7+
-			debounce_text_changes = 150,
-		}
-	}
-end
