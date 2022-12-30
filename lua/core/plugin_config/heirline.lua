@@ -322,15 +322,6 @@ local LSPActive = {
 	hl       = { fg = "green", bold = true },
 }
 
--- The easy way.
-local Navic = {
-	condition = require("nvim-navic").is_available,
-	provider = function()
-		require("nvim-navic").get_location({ highlight = true })
-	end,
-	update = 'CursorMoved'
-}
-
 
 local Git = {
 	condition = conditions.is_git_repo,
