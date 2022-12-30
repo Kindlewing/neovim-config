@@ -18,7 +18,6 @@ return require('packer').startup(function(use)
 	use 'nvim-tree/nvim-tree.lua'
 	use 'nvim-tree/nvim-web-devicons'
 	use 'nvim-treesitter/nvim-treesitter'
-	use 'mfussenegger/nvim-dap'
 	use 'hrsh7th/nvim-cmp'
 	use 'j-hui/fidget.nvim'
 	use {

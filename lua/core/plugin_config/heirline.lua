@@ -252,6 +252,20 @@ local FileLastModified = {
     end
 }
 
+
+
+local TerminalName = {
+    -- we could add a condition to check that buftype == 'terminal'
+    -- or we could do that later (see #conditional-statuslines below)
+    provider = function()
+        local tname, _ = vim.api.nvim_buf_get_name(0):gsub(".*:", "")
+        return " " .. tname
+    end,
+    hl = { fg = "blue", bold = true },
+}
+
+
+
 -- We're getting minimalists here!
 local Ruler = {
     -- %l = current line number
@@ -669,16 +683,77 @@ local TabLineOffset = {
 local Align = { provider = "%="}
 local Space = { provider = " " }
 
+vim.api.nvim_create_autocmd("User", {
+    pattern = 'HeirlineInitWinbar',
+    callback = function(args)
+        local buf = args.buf
+        local buftype = vim.tbl_contains(
+            { "prompt", "nofile", "help", "quickfix" },
+            vim.bo[buf].buftype
+        )
+        local filetype = vim.tbl_contains({ "gitcommit", "fugitive" }, vim.bo[buf].filetype)
+        if buftype or filetype then
+            vim.opt_local.winbar = nil
+        end
+    end,
+})
+
+-- WinBar
+local WinBars = {
+    fallthrough = false,
+    {   -- Hide the winbar for special buffers
+        condition = function()
+            return conditions.buffer_matches({
+                buftype = { "nofile", "prompt", "help", "quickfix" },
+                filetype = { "^git.*", "fugitive" },
+            })
+        end,
+        init = function()
+            vim.opt_local.winbar = nil
+        end
+    },
+    {   -- A special winbar for terminals
+        condition = function()
+            return conditions.buffer_matches({ buftype = { "terminal" } })
+        end,
+        utils.surround({ "", "" }, "dark_red", {
+            FileType,
+            Space,
+            TerminalName,
+        }),
+    },
+    {   -- An inactive winbar for regular files
+        condition = function()
+            return not conditions.is_active()
+        end,
+        utils.surround({ "", "" }, "bright_bg", { hl = { fg = "gray", force = true }, FileNameBlock }),
+    },
+    -- A winbar for regular files
+    utils.surround({ "", "" }, "bright_bg", FileNameBlock),
+}
+
+
+ViMode = utils.surround({ "", "" }, "bright_bg", { ViMode })
+WorkDir = utils.surround({ "", "" }, "bright_bg", { WorkDir })
+FileNameBlock = utils.surround({ "", "" }, "bright_bg", { FileNameBlock })
+Git = utils.surround({ "", "" }, "bright_bg", { Git })
+Diagnostics = utils.surround({ "", "" }, "bright_bg", { Diagnostics })
+Navic = utils.surround({ "", "" }, "bright_bg", { Navic })
+
+LSPActive = utils.surround({ "", "" }, "bright_bg", { LSPActive })
+FileType = utils.surround({ "", "" }, "bright_bg", { FileType })
+Ruler = utils.surround({ "", "" }, "bright_bg", { Ruler })
+ScrollBar = utils.surround({ "", "" }, "bright_bg", { ScrollBar })
 
 -- Load statusline
 local StatusLine = {
 	ViMode, Space, WorkDir, Space, FileNameBlock, Space, Git, Space, Diagnostics, Align,
-	Navic, DapMessages, Align,
-	LSPActive, Space, Space, Space, FileType, Space, Ruler, Space, ScrollBar
+	LSPActive, Space, Space, FileType, Space, Ruler, Space, ScrollBar
 }
 
 
-local TabLine = {TabLineOffset, BufferLine, TabPages }
+local TabLine = { TabLineOffset, BufferLine, TabPages }
 
+local WinBar = { WinBars }
 
-require('heirline').setup(StatusLine, TabLine)
+require('heirline').setup(StatusLine, WinBar, TabLine)
