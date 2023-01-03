@@ -7,6 +7,7 @@ vim.g.netrwFileHandlers = true
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
+vim.opt.mouse = ""
 vim.opt.clipboard = "unnamedplus" -- Connection to the system clipboard
 vim.opt.copyindent = true -- Copy the previous indentation on autoindenting
 vim.opt.cursorline = true -- Highlight the text line of the cursor
