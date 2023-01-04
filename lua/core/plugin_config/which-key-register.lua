@@ -40,3 +40,4 @@ if is_available "telescope.nvim" then
 end
 
 if is_available "nvim-dap" then init_table("n", "<leader>", "D") end
+neovim.which_key_register(mappings)
