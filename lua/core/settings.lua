@@ -27,3 +27,5 @@ vim.opt.timeoutlen = 300 -- Length of time to wait for a mapped sequence
 vim.opt.updatetime = 300 -- Length of time to wait before triggering the plugin
 vim.opt.wrap = false -- Disable wrapping of lines longer than the width of window
 vim.opt.writebackup = false -- Disable making a backup before overwriting a file
+
+require('core.bootstrap')
