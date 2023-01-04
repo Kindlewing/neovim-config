@@ -18,7 +18,17 @@ return require('packer').startup(function(use)
     use 'lewis6991/impatient.nvim'
     use 'ellisonleao/gruvbox.nvim'
     use 'nvim-tree/nvim-tree.lua'
-    use 'nvim-tree/nvim-web-devicons'
+    use {
+      "folke/which-key.nvim",
+      config = function()
+        require("which-key").setup {
+          -- your configuration comes here
+          -- or leave it empty to use the default settings
+          -- refer to the configuration section below
+        }
+      end
+    }
+use 'nvim-tree/nvim-web-devicons'
     use {
         "akinsho/toggleterm.nvim",
         tag = '*',
