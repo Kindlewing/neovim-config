@@ -113,7 +113,7 @@ local status_ok, packer = pcall(require, "packer")
 if status_ok then
   packer.startup {
     function(use)
-      local plugins = user_plugin_opts("plugins.init", neovim_plugins)
+      local plugins = neovim_plugins
       for key, plugin in pairs(plugins) do
         if type(key) == "string" and not plugin[1] then plugin[1] = key end
         if key == "williamboman/mason.nvim" and plugin.cmd then
