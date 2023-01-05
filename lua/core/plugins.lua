@@ -68,11 +68,11 @@ local neovim_plugins = {
         setup = {
             function()
                 table.insert(neovim.file_plugins, 'indent-o-matic')
-            end
+            end,
         },
         config = function()
             require('core.plugin_config.indent-o-matic')
-        end
+        end,
     },
     ['hrsh7th/cmp-nvim-lsp'] = {},
     ['SmiteshP/nvim-navic'] = {
