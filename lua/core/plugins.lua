@@ -94,6 +94,9 @@ local neovim_plugins = {
     },
 }
 -- END PLUGINS
+
+
+
 local is_ok, packer = pcall(require, 'packer')
 
 if is_ok then
@@ -115,3 +118,7 @@ if is_ok then
         end,
     }
 end
+
+ if packer_bootstrap then
+    require('packer').sync()
+  end
