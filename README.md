@@ -1,4 +1,10 @@
 # neovim configuration
 
 ### Installation instructions
-```git clone 
+```sh
+git clone git@github.com:Kindlewing/neovim-config.git ~/.config/nvim/
+```
+```sh
+nvim
+```
+Everything should work. If not, run ``` :PackerSync ``` from within neovim
