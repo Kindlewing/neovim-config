@@ -1,20 +1,23 @@
-local ensure_packer = function()
-    local fn = vim.fn
-    local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
-    if fn.empty(fn.glob(install_path)) > 0 then
-        fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path }) vim.cmd [[packadd packer.nvim]] return true
-    end
-    return false
-end
-
-local packer_bootstrap = ensure_packer()
-
-
-
-
 local neovim_plugins = {
 -- BEGIN PLUGINS
-    ['wbthomason/packer.nvim'] = {},
+    ['wbthomason/packer.nvim'] = {
+        setup = function()
+            neovim.lazy_load_commands("packer.nvim", {
+                "PackerSnapshot",
+                "PackerSnapshotRollback",
+                "PackerSnapshotDelete",
+                "PackerInstall",
+                "PackerUpdate",
+                "PackerSync",
+                "PackerClean",
+                "PackerCompile",
+                "PackerStatus",
+                "PackerProfile",
+                "PackerLoad",
+              })
+        end,
+        config = function() require "core.plugins" end,
+    },
     ['lewis6991/impatient.nvim'] = {},
     ['ellisonleao/gruvbox.nvim'] = {},
     ['nvim-tree/nvim-tree.lua'] = {},
@@ -96,29 +99,45 @@ local neovim_plugins = {
 -- END PLUGINS
 
 
-
-local is_ok, packer = pcall(require, 'packer')
-
-if is_ok then
-    packer.startup {
-        function(use)
-            for key, plugin in pairs(neovim_plugins) do
-                if type(key) == 'string' and not  plugin[1] then plugin[1] = key end
-                if key == 'williamboman/mason.nvim' and plugin.cmd then
-                    for mason_plugin, commands in pairs {
-                        ['williamboman/mason-lspconfig.nvim'] = { 'LSPInstall', 'LspUninstall' },
-                    } do
-                        if neovim_plugins[mason_plugin] then
-                            vim.list_extend(plugin.cmd, commands)
-                        end
-                    end
-                end
-                use(plugin)
+local user_plugin_opts = neovim.user_plugin_opts
+local status_ok, packer = pcall(require, "packer")
+if status_ok then
+  packer.startup {
+    function(use)
+      local plugins = user_plugin_opts("plugins.init", neovim_plugins)
+      for key, plugin in pairs(plugins) do
+        if type(key) == "string" and not plugin[1] then plugin[1] = key end
+        if key == "williamboman/mason.nvim" and plugin.cmd then
+          for mason_plugin, commands in pairs { -- lazy load mason plugin commands with Mason
+            ["jayp0521/mason-null-ls.nvim"] = { "NullLsInstall", "NullLsUninstall" },
+            ["williamboman/mason-lspconfig.nvim"] = { "LspInstall", "LspUninstall" },
+            ["jayp0521/mason-nvim-dap.nvim"] = { "DapInstall", "DapUninstall" },
+          } do
+            if plugins[mason_plugin] and not plugins[mason_plugin].disable then
+              vim.list_extend(plugin.cmd, commands)
             end
-        end,
-    }
+          end
+        end
+        use(plugin)
+      end
+    end,
+    config = user_plugin_opts("plugins.packer", {
+      compile_path = neovim.default_compile_path,
+      display = {
+        open_fn = function() return require("packer.util").float { border = "rounded" } end,
+      },
+      profile = {
+        enable = true,
+        threshold = 0.0001,
+      },
+      git = {
+        clone_timeout = 300,
+        subcommands = {
+          update = "pull --rebase",
+        },
+      },
+      auto_clean = true,
+      compile_on_sync = true,
+    }),
+  }
 end
-
- if packer_bootstrap then
-    require('packer').sync()
-  end
