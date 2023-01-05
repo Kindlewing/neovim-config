@@ -22,7 +22,6 @@ local neovim_plugins = {
     ['ellisonleao/gruvbox.nvim'] = {},
     ['nvim-tree/nvim-tree.lua'] = {},
     ["lukas-reineke/indent-blankline.nvim"] = {
-        opt = true,
         setup = function() table.insert(neovim.file_plugins, "indent-blankline.nvim") end,
         config = function() require("core.plugin_config.indent-line") end,
     },
@@ -64,7 +63,6 @@ local neovim_plugins = {
     },
     ['hrsh7th/nvim-cmp'] = {},
     ['Darazaki/indent-o-matic'] = {
-        opt = true,
         setup = {
             function()
                 table.insert(neovim.file_plugins, 'indent-o-matic')
