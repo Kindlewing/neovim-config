@@ -21,6 +21,11 @@ local neovim_plugins = {
     ['lewis6991/impatient.nvim'] = {},
     ['ellisonleao/gruvbox.nvim'] = {},
     ['nvim-tree/nvim-tree.lua'] = {},
+    ["lukas-reineke/indent-blankline.nvim"] = {
+        opt = true,
+        setup = function() table.insert(neovim.file_plugins, "indent-blankline.nvim") end,
+        config = function() require "core.plugin_config.indent-line" end,
+    },
     ['folke/which-key.nvim'] = { module = 'which-key', config = function() require('core.plugin_config.which-key') end },
     ['nvim-tree/nvim-web-devicons'] = {},
     ['akinsho/toggleterm.nvim'] = {
