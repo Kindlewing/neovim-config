@@ -64,6 +64,12 @@ local neovim_plugins = {
     },
     ['hrsh7th/nvim-cmp'] = {},
     ['Darazaki/indent-o-matic'] = {
+        opt = true,
+        setup = {
+            function()
+                table.insert(neovim.file_plugins, 'indent-o-matic')
+            end
+        },
         config = function()
             require('core.plugin_config.indent-o-matic')
         end
