@@ -1,1 +1,4 @@
-# neovim-config
+# neovim configuration
+
+### Installation instructions
+```git clone 
