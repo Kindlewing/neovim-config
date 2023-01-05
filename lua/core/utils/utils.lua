@@ -1,7 +1,6 @@
 _G.neovim = {}
 
 local stdpath = vim.fn.stdpath
-neovim.compile_path = stdpath "data" .. "/packer_compiled.lua"
 neovim.file_plugins = {}
 
 function neovim.bootstrap()
@@ -16,7 +15,6 @@ function neovim.bootstrap()
       "https://github.com/wbthomason/packer.nvim",
       install_path,
     }
-    print "Cloning packer...\nSetup AstroVim"
     vim.cmd [[packadd packer.nvim]]
   end
 end
