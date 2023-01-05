@@ -1,6 +1,6 @@
 require('mason').setup()
 require('mason-lspconfig').setup({
-	ensure_installed = { 'sumneko_lua', 'rust_analyzer', 'tsserver', 'intelephense', 'tailwindcss', 'cssls' }
+	ensure_installed = { 'sumneko_lua', 'rust_analyzer', 'tsserver', 'intelephense', 'tailwindcss', 'cssls', 'html' }
 })
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
@@ -31,7 +31,7 @@ end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { 'pyright', 'rust_analyzer', 'tsserver', 'intelephense', 'tailwindcss', 'cssls' }
+local servers = { 'pyright', 'rust_analyzer', 'tsserver', 'intelephense', 'tailwindcss', 'cssls', 'html' }
 
 for _, lsp in pairs(servers) do
 	require('lspconfig')[lsp].setup {
