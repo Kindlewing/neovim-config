@@ -4,6 +4,23 @@ local stdpath = vim.fn.stdpath
 neovim.compile_path = stdpath "data" .. "/packer_compiled.lua"
 neovim.file_plugins = {}
 
+function neovim.bootstrap()
+  local fn = vim.fn
+  local install_path = fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
+  if fn.empty(fn.glob(install_path)) > 0 then
+    PACKER_BOOTSTRAP = fn.system {
+      "git",
+      "clone",
+      "--depth",
+      "1",
+      "https://github.com/wbthomason/packer.nvim",
+      install_path,
+    }
+    print "Cloning packer...\nSetup AstroVim"
+    vim.cmd [[packadd packer.nvim]]
+  end
+end
+
 
 function neovim.default_tbl(opts, default)
     opts = opts or {}
