@@ -31,7 +31,29 @@ local neovim_plugins = {
             require('core.plugin_config.dressing')
         end
     },
-    ['nvim-treesitter/nvim-treesitter'] = {},
+    ['nvim-treesitter/nvim-treesitter'] = {
+        module = "nvim-treesitter",
+        setup = function()
+          table.insert(neovim.file_plugins, "nvim-treesitter")
+          neovim.lazy_load_commands("nvim-treesitter", {
+            "TSBufDisable",
+            "TSBufEnable",
+            "TSBufToggle",
+            "TSDisable",
+            "TSEnable",
+            "TSToggle",
+            "TSInstall",
+            "TSInstallInfo",
+            "TSInstallSync",
+            "TSModuleInfo",
+            "TSUninstall",
+            "TSUpdate",
+            "TSUpdateSync",
+          })
+        end,
+        run = function() require("nvim-treesitter.install").update { with_sync = true }() end,
+        config = function() require "core.plugin_config.treesitter" end,
+    },
     ['hrsh7th/nvim-cmp'] = {},
     ['Darazaki/indent-o-matic'] = {
         config = function()
@@ -57,7 +79,7 @@ local neovim_plugins = {
         setup = function() neovim.lazy_load_commands("bufdelete.nvim", { "Bdelete", "Bwipeout" }) end,
     },
     ['L3MON4D3/LuaSnip'] = { tag = "v<CurrentMajor>.*" },
-    ['windwp/nvim-ts-autotag'] = {},
+    ['windwp/nvim-ts-autotag'] = { after = 'nvim-treesitter' },
     ['windwp/nvim-autopairs'] = {
         config = function()
             require("nvim-autopairs").setup {}

@@ -2,6 +2,8 @@ _G.neovim = {}
 
 local stdpath = vim.fn.stdpath
 neovim.compile_path = stdpath "data" .. "/packer_compiled.lua"
+neovim.file_plugins = {}
+
 
 function neovim.default_tbl(opts, default)
     opts = opts or {}

@@ -1,4 +1,5 @@
-require('core.utils')
+require('core.utils.utils')
+require('core.utils.auto-commands')
 require('core.settings')
 require('core.plugins')
 require('core.keymaps')
