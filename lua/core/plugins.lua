@@ -51,6 +51,11 @@ local neovim_plugins = {
             require 'core.plugin_config.heirline'
         end
     },
+
+    ["famiu/bufdelete.nvim"] = {
+        module = "bufdelete",
+        setup = function() neovim.lazy_load_commands("bufdelete.nvim", { "Bdelete", "Bwipeout" }) end,
+    },
     ['L3MON4D3/LuaSnip'] = { tag = "v<CurrentMajor>.*" },
     ['windwp/nvim-ts-autotag'] = {},
     ['windwp/nvim-autopairs'] = {
