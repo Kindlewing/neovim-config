@@ -10,7 +10,7 @@ vim.opt.shiftwidth = 4
 vim.opt.mouse = ""
 vim.opt.clipboard = "unnamedplus" -- Connection to the system clipboard
 vim.opt.copyindent = true -- Copy the previous indentation on autoindenting
-vi.opt.smartindent = true -- Do auto indenting when starting a new line
+vim.opt.smartindent = true -- Do auto indenting when starting a new line
 vim.opt.cursorline = true -- Highlight the text line of the cursor
 vim.opt.fileencoding = "utf-8" -- File content encoding for the buffer
 vim.opt.cmdheight = 0 -- hide command line unless needed
@@ -28,4 +28,3 @@ vim.opt.timeoutlen = 300 -- Length of time to wait for a mapped sequence
 vim.opt.updatetime = 300 -- Length of time to wait before triggering the plugin
 vim.opt.wrap = false -- Disable wrapping of lines longer than the width of window
 vim.opt.writebackup = false -- Disable making a backup before overwriting a file
-
