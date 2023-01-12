@@ -21,6 +21,10 @@ local neovim_plugins = {
     ['lewis6991/impatient.nvim'] = {},
     ['ellisonleao/gruvbox.nvim'] = {},
     ['nvim-tree/nvim-tree.lua'] = {},
+    ["lukas-reineke/indent-blankline.nvim"] = {
+        setup = function() table.insert(neovim.file_plugins, "indent-blankline.nvim") end,
+        config = function() require("core.plugin_config.indent-line") end,
+    },
     ['folke/which-key.nvim'] = { module = 'which-key', config = function() require('core.plugin_config.which-key') end },
     ['nvim-tree/nvim-web-devicons'] = {},
     ['akinsho/toggleterm.nvim'] = {
@@ -59,9 +63,14 @@ local neovim_plugins = {
     },
     ['hrsh7th/nvim-cmp'] = {},
     ['Darazaki/indent-o-matic'] = {
+        setup = {
+            function()
+                table.insert(neovim.file_plugins, 'indent-o-matic')
+            end,
+        },
         config = function()
             require('core.plugin_config.indent-o-matic')
-        end
+        end,
     },
     ['hrsh7th/cmp-nvim-lsp'] = {},
     ['SmiteshP/nvim-navic'] = {
@@ -104,14 +113,12 @@ local status_ok, packer = pcall(require, "packer")
 if status_ok then
   packer.startup {
     function(use)
-      local plugins = user_plugin_opts("plugins.init", neovim_plugins)
+      local plugins = neovim_plugins
       for key, plugin in pairs(plugins) do
         if type(key) == "string" and not plugin[1] then plugin[1] = key end
         if key == "williamboman/mason.nvim" and plugin.cmd then
           for mason_plugin, commands in pairs { -- lazy load mason plugin commands with Mason
-            ["jayp0521/mason-null-ls.nvim"] = { "NullLsInstall", "NullLsUninstall" },
             ["williamboman/mason-lspconfig.nvim"] = { "LspInstall", "LspUninstall" },
-            ["jayp0521/mason-nvim-dap.nvim"] = { "DapInstall", "DapUninstall" },
           } do
             if plugins[mason_plugin] and not plugins[mason_plugin].disable then
               vim.list_extend(plugin.cmd, commands)
