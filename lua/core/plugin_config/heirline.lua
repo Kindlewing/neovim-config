@@ -763,4 +763,8 @@ local TabLine = { TabLineOffset, BufferLine, TabPages }
 
 local WinBar = { WinBars }
 
-require('heirline').setup(StatusLine, WinBar, TabLine)
+require('heirline').setup({
+	statusline = StatusLine,
+	winbar = WinBar,
+	tabline = TabLine
+})
